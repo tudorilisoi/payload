@@ -28,9 +28,11 @@ import {
   mediaWithoutCacheTagsSlug,
   mediaWithoutRelationPreviewSlug,
   mediaWithRelationPreviewSlug,
+  noRestrictedFileTypesSlug,
   reduceSlug,
   relationPreviewSlug,
   relationSlug,
+  restrictedFileTypesSlug,
   skipAllowListSafeFetchMediaSlug,
   skipSafeFetchMediaSlug,
   threeDimensionalSlug,
@@ -443,6 +445,20 @@ export default buildConfigWithDefaults({
       upload: {
         skipSafeFetch: [{ protocol: 'http', hostname: '127.0.0.1', port: '', search: '' }],
         staticDir: path.resolve(dirname, './media'),
+      },
+    },
+    {
+      slug: restrictedFileTypesSlug,
+      fields: [],
+      upload: {
+        restrictedFileTypes: false,
+      },
+    },
+    {
+      slug: noRestrictedFileTypesSlug,
+      fields: [],
+      upload: {
+        restrictedFileTypes: true,
       },
     },
     {
