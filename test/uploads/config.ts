@@ -28,11 +28,12 @@ import {
   mediaWithoutCacheTagsSlug,
   mediaWithoutRelationPreviewSlug,
   mediaWithRelationPreviewSlug,
-  noRestrictedFileTypesSlug,
+  noRestrictFileMimeTypesSlug,
+  noRestrictFileTypesSlug,
   reduceSlug,
   relationPreviewSlug,
   relationSlug,
-  restrictedFileTypesSlug,
+  restrictFileTypesSlug,
   skipAllowListSafeFetchMediaSlug,
   skipSafeFetchMediaSlug,
   threeDimensionalSlug,
@@ -448,17 +449,24 @@ export default buildConfigWithDefaults({
       },
     },
     {
-      slug: restrictedFileTypesSlug,
+      slug: restrictFileTypesSlug,
       fields: [],
       upload: {
-        restrictedFileTypes: false,
+        allowRestrictedFileTypes: false,
       },
     },
     {
-      slug: noRestrictedFileTypesSlug,
+      slug: noRestrictFileTypesSlug,
       fields: [],
       upload: {
-        restrictedFileTypes: true,
+        allowRestrictedFileTypes: true,
+      },
+    },
+    {
+      slug: noRestrictFileMimeTypesSlug,
+      fields: [],
+      upload: {
+        mimeTypes: ['text/html'],
       },
     },
     {
