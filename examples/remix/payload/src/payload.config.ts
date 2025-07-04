@@ -32,6 +32,47 @@ export default buildConfig({
     Users,
     Media,
     {
+      slug: 'tags',
+      labels: {
+        singular: {
+          en: 'Tag',
+          ro: 'Etichetă',
+        },
+        plural: {
+          en: 'Tags',
+          ro: 'Etichete',
+        },
+      },
+      admin: {
+        // group: {
+        //   en: 'Articles',
+        //   ro: 'Articole',
+        // },
+        useAsTitle: 'tag',
+      },
+      fields: [
+        {
+          name: 'tag',
+          type: 'text',
+          required: true,
+          unique: true,
+          index: true,
+          label: {
+            en: 'Tag',
+            ro: 'Etichetă',
+          },
+          hooks: {
+            beforeValidate: [
+              ({ value }) => {
+                // Trim whitespace and convert to lowercase
+                return value.trim().toLowerCase()
+              },
+            ],
+          },
+        },
+      ],
+    },
+    {
       slug: 'posts',
       labels: {
         singular: {
@@ -44,10 +85,11 @@ export default buildConfig({
         },
       },
       admin: {
-        group: {
-          en: 'Articles',
-          ro: 'Articole',
-        },
+        // group: {
+        //   en: 'Articles',
+        //   ro: 'Articole',
+        // },
+        useAsTitle: 'title',
       },
       fields: [
         {
@@ -67,6 +109,20 @@ export default buildConfig({
           label: {
             en: 'Content',
             ro: 'Conținut',
+          },
+        },
+
+        {
+          name: 'tags',
+          type: 'relationship',
+          relationTo: 'tags',
+          hasMany: true,
+          label: {
+            en: 'Tags',
+            ro: 'Etichete',
+          },
+          admin: {
+            sortOptions: 'tag',
           },
         },
         {
