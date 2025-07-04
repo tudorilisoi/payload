@@ -22,6 +22,24 @@ export default buildConfig({
   i18n: {
     // @ts-ignore
     supportedLanguages: { en, ro },
+    translations: {
+      ro: {
+        general: {
+          createNew: 'Creează',
+          creatingNewLabel: 'Creează {{label}}',
+          createNewLabel: 'Creează {{label}}',
+          perPage: '{{limit}} per pagină',
+          of: 'din',
+          noResults:
+            'Nu am găsit {{label}}. Nu există nicio înregistreare sau niciuna nu corespunde filtrelor selectate',
+          noLabel: '<Fără {{label}}>',
+          none: 'Fără',
+        },
+        fields:{
+           itemsAndMore: '{{items}} şi încă {{count}}',
+        },
+      },
+    },
   },
   admin: {
     user: Users.slug,
