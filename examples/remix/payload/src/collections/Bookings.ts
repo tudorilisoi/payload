@@ -11,7 +11,7 @@ export const Bookings: CollectionConfig = {
       ro: 'Rezervare',
     },
     plural: {
-      en: 'Booking',
+      en: 'Bookings',
       ro: 'Rezervări',
     },
   },

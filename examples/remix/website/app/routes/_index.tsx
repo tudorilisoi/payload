@@ -1,7 +1,7 @@
 import type { ActionFunctionArgs, MetaFunction } from '@remix-run/node'
 import { Form, useLoaderData } from '@remix-run/react'
 import { getPayload, PaginatedDocs } from 'payload'
-import { config, Post } from 'payload-app'
+import { config, Post, Booking } from 'payload-app'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'New Remix App' }, { name: 'description', content: 'Welcome to Remix!' }]
@@ -43,7 +43,10 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Index() {
-  const posts = useLoaderData<PaginatedDocs<Post>>()
+  const { posts, bookings } = useLoaderData<{
+    posts: PaginatedDocs<Post>
+    bookings: PaginatedDocs<Booking>
+  }>()
 
   return (
     <div className="flex h-screen items-center justify-center">
@@ -72,6 +75,12 @@ export default function Index() {
                     X
                   </button>
                 </Form>
+              </li>
+            ))}
+            {bookings.docs.map((booking) => (
+              <li key={booking.id} className="flex items-center justify-between">
+                <h3>{booking.startDate}</h3>
+
               </li>
             ))}
           </ul>
