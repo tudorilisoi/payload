@@ -11,6 +11,7 @@ import { en } from '@payloadcms/translations/languages/en'
 import { ro } from '@payloadcms/translations/languages/ro'
 import { tagsfield } from './tagsfield'
 import { Tags } from './collections/Tags'
+import { Bookings } from './collections/Bookings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -53,6 +54,7 @@ export default buildConfig({
     Users,
     Media,
     Tags,
+    Bookings,
     {
       slug: 'posts',
       labels: {

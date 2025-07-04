@@ -11,9 +11,10 @@ export const loader = async () => {
   const payload = await getPayload({ config })
 
   const posts = await payload.find({ collection: 'posts', sort: 'createdAt' })
+  const bookings = await payload.find({ collection: 'bookings', sort: 'createdAt' })
   console.log("Posts", posts)
 
-  return Response.json(posts)
+  return Response.json({posts, bookings})
 }
 
 export async function action({ request }: ActionFunctionArgs) {
