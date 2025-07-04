@@ -9,6 +9,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { en } from '@payloadcms/translations/languages/en'
 import { ro } from '@payloadcms/translations/languages/ro'
+import { tagsfield } from './tagsfield'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -112,19 +113,7 @@ export default buildConfig({
           },
         },
 
-        {
-          name: 'tags',
-          type: 'relationship',
-          relationTo: 'tags',
-          hasMany: true,
-          label: {
-            en: 'Tags',
-            ro: 'Etichete',
-          },
-          admin: {
-            sortOptions: 'tag',
-          },
-        },
+        tagsfield,
         {
           name: 'media',
           type: 'upload',

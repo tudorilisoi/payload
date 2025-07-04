@@ -1,3 +1,4 @@
+import { tagsfield } from '@/tagsfield'
 import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
@@ -11,6 +12,7 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    tagsfield,
   ],
   upload: true,
 }
