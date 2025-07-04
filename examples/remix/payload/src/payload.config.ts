@@ -1,7 +1,7 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
-import { buildConfig } from 'payload'
+import { buildConfig, CollectionAfterDeleteHook, CollectionSlug } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
@@ -16,6 +16,42 @@ const dirname = path.dirname(filename)
 
 const editorProps = {
   features: ({ defaultFeatures }) => [...defaultFeatures, FixedToolbarFeature()],
+}
+
+export const removeTagFromRelations: CollectionAfterDeleteHook = async ({ doc, req }) => {
+  const deletedTagId = doc.id
+
+  const collectionsToUpdate: CollectionSlug[] = ['posts', 'media'] // your target collections
+  const tagField = 'tags' // adjust if your field is named differently
+
+  for (const collection of collectionsToUpdate) {
+    // Find docs that contain the deleted tag
+    const relatedDocs = await req.payload.find({
+      collection,
+      where: {
+        [tagField]: {
+          contains: deletedTagId,
+        },
+      },
+      limit: 100, // adjust if expecting more
+    })
+
+    for (const relatedDoc of relatedDocs.docs) {
+      // Remove the tag from the array
+      const updatedTags = (relatedDoc[tagField] || []).filter((id: string) => id !== deletedTagId)
+
+      // Update the document
+      await req.payload.update({
+        collection,
+        id: relatedDoc.id,
+        data: {
+          [tagField]: updatedTags,
+        },
+      })
+    }
+  }
+
+  return doc
 }
 
 export default buildConfig({
@@ -35,8 +71,8 @@ export default buildConfig({
           noLabel: '<Fără {{label}}>',
           none: 'Fără',
         },
-        fields:{
-           itemsAndMore: '{{items}} şi încă {{count}}',
+        fields: {
+          itemsAndMore: '{{items}} şi încă {{count}}',
         },
       },
     },
@@ -90,6 +126,9 @@ export default buildConfig({
           },
         },
       ],
+      hooks: {
+        afterDelete: [removeTagFromRelations],
+      },
     },
     {
       slug: 'posts',
