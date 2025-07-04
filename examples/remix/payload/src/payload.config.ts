@@ -14,8 +14,8 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-   i18n: {
-  supportedLanguages:{en,ro}
+  i18n: {
+    supportedLanguages: { en, ro },
   },
   admin: {
     user: Users.slug,
@@ -28,12 +28,48 @@ export default buildConfig({
     Media,
     {
       slug: 'posts',
+      labels: {
+        singular: {
+          en: 'Post',
+          ro: 'Postare',
+        },
+        plural: {
+          en: 'Posts',
+          ro: 'Postări',
+        },
+      },
+      admin: {
+        group: {
+          en: 'Posts',
+          ro: 'Postări',
+        },
+      },
       fields: [
         {
           name: 'title',
-          label: 'Title',
           type: 'text',
           required: true,
+          label: {
+            en: 'Title',
+            ro: 'Titlu',
+          },
+        },
+        {
+          name: 'content',
+          type: 'richText',
+          required: true,
+          editor: lexicalEditor({}),
+           label: {
+            en: 'Content',
+            ro: 'Conținut',
+          },
+        },
+        {
+          name: 'media',
+          type: 'upload',
+          relationTo: 'media', // Name of the Media collection
+          required: false,
+          hasMany: true, // Allows multiple uploads
         },
       ],
     },
