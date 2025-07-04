@@ -25,6 +25,7 @@
     "@payloadcms/db-mongodb": "latest",
     "@payloadcms/next": "latest",
     "@payloadcms/richtext-lexical": "latest",
+    "@payloadcms/translations": "^3.45.0",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
     "next": "15.2.3",
