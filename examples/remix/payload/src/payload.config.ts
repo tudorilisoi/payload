@@ -1,5 +1,5 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -12,6 +12,10 @@ import { ro } from '@payloadcms/translations/languages/ro'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const editorProps = {
+  features: ({ defaultFeatures }) => [...defaultFeatures, FixedToolbarFeature()],
+}
 
 export default buildConfig({
   i18n: {
@@ -31,18 +35,18 @@ export default buildConfig({
       slug: 'posts',
       labels: {
         singular: {
-          en: 'Post',
-          ro: 'Postare',
+          en: 'Article',
+          ro: 'Articol',
         },
         plural: {
-          en: 'Posts',
-          ro: 'Postări',
+          en: 'Articles',
+          ro: 'Articole',
         },
       },
       admin: {
         group: {
-          en: 'Posts',
-          ro: 'Postări',
+          en: 'Articles',
+          ro: 'Articole',
         },
       },
       fields: [
@@ -59,8 +63,8 @@ export default buildConfig({
           name: 'content',
           type: 'richText',
           required: true,
-          editor: lexicalEditor({}),
-           label: {
+          editor: lexicalEditor(editorProps),
+          label: {
             en: 'Content',
             ro: 'Conținut',
           },
@@ -75,18 +79,17 @@ export default buildConfig({
       ],
     },
   ],
-  editor: lexicalEditor(),
+  editor: lexicalEditor(editorProps),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   async onInit(payload) {
-   /*  const { totalDocs: postsCount } = await payload.count({ collection: 'posts' })
+    /*  const { totalDocs: postsCount } = await payload.count({ collection: 'posts' })
 
     if (!postsCount) {
       await payload.create({ collection: 'posts', data: { title: 'Post 1' } })
     } */
-
   },
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
