@@ -1,10 +1,10 @@
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { en } from '@payloadcms/translations/languages/en'
 import { ro } from '@payloadcms/translations/languages/ro'
 import { Articles } from './collections/Articles'
@@ -59,8 +59,15 @@ export default buildConfig({
       await payload.create({ collection: 'posts', data: { title: 'Post 1' } })
     } */
   },
-  db: mongooseAdapter({
+  /*   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
+  }), */
+
+  db: sqliteAdapter({
+    client: {
+      url: process.env.DATABASE_URI!,
+      // authToken: process.env.DATABASE_AUTH_TOKEN,
+    },
   }),
   sharp,
   plugins: [],
