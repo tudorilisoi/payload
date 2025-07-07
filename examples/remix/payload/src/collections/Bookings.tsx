@@ -1,4 +1,8 @@
 import { CollectionConfig } from 'payload'
+import { EmailCell } from './EmailCell'
+
+
+
 
 export const Bookings: CollectionConfig = {
   slug: 'bookings',
@@ -29,6 +33,15 @@ export const Bookings: CollectionConfig = {
       admin: {
         date: {
           pickerAppearance: 'dayAndTime',
+        },
+      },
+    },
+     {
+      name: 'customAction',
+      type: 'ui',
+      admin: {
+        components: {
+          Cell: EmailCell,
         },
       },
     },
