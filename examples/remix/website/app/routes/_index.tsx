@@ -79,7 +79,7 @@ export default function Index() {
             ))}
             {bookings.docs.map((booking) => (
               <li key={booking.id} className="flex items-center justify-between">
-                <h3>{booking.startDate}</h3>
+                <h3>Booking: {booking.startDate}</h3>
 
               </li>
             ))}
