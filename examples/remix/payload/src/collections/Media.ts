@@ -14,5 +14,8 @@ export const Media: CollectionConfig = {
     },
     tagsfield,
   ],
-  upload: true,
+   upload: {
+    staticDir: 'media',
+    mimeTypes: ['image/*'],
+  },
 }
