@@ -1,13 +1,11 @@
 import { CollectionConfig } from 'payload'
-import { EmailCell } from './EmailCell'
-
-
-
+import { EmailCell } from './fields/EmailCell'
+import { fullnamefield } from './fields/fullNamefield'
 
 export const Bookings: CollectionConfig = {
   slug: 'bookings',
   admin: {
-    // useAsTitle: 'tag',
+    useAsTitle: 'fullName',
   },
   labels: {
     singular: {
@@ -20,11 +18,11 @@ export const Bookings: CollectionConfig = {
     },
   },
   fields: [
+    fullnamefield,
     {
       name: 'startDate',
       type: 'date',
       required: true,
-      unique: true,
       index: true,
       label: {
         en: 'Start date',
@@ -36,7 +34,7 @@ export const Bookings: CollectionConfig = {
         },
       },
     },
-     {
+    {
       name: 'customAction',
       type: 'ui',
       admin: {
@@ -46,4 +44,5 @@ export const Bookings: CollectionConfig = {
       },
     },
   ],
+
 }

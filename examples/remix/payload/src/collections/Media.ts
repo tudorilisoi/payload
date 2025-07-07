@@ -1,4 +1,4 @@
-import { tagsfield } from '@/collections/tagsfield'
+import { tagsfield } from '@/collections/fields/tagsfield'
 import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {

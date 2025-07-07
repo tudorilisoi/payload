@@ -1,5 +1,5 @@
 import { editorProps } from '@/lexical/editorProps'
-import { tagsfield } from '@/collections/tagsfield'
+import { tagsfield } from '@/collections/fields/tagsfield'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload'
 
