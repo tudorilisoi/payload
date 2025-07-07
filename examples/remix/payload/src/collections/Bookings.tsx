@@ -1,5 +1,4 @@
 import { CollectionConfig } from 'payload'
-import { EmailCell } from './fields/EmailCell'
 import { fullnamefield } from './fields/fullNamefield'
 
 export const Bookings: CollectionConfig = {
@@ -20,6 +19,14 @@ export const Bookings: CollectionConfig = {
   fields: [
     fullnamefield,
     {
+      name: 'phone',
+      type: 'text',
+      label: {
+        en: 'Phone',
+        ro: 'Telefon',
+      },
+    },
+    {
       name: 'startDate',
       type: 'date',
       required: true,
@@ -34,7 +41,7 @@ export const Bookings: CollectionConfig = {
         },
       },
     },
-    {
+    /*     {
       name: 'customAction',
       type: 'ui',
       admin: {
@@ -42,7 +49,30 @@ export const Bookings: CollectionConfig = {
           Cell: EmailCell,
         },
       },
+    }, */
+    {
+      name: 'status',
+      type: 'select',
+      label: {
+        en: 'Status',
+        ro: 'Stare',
+      },
+      options: [
+        {
+          label: {
+            en: 'Unconfirmed',
+            ro: 'Neconfirmat',
+          },
+          value: 'UNCONFIRMED',
+        },
+        {
+          label: {
+            en: 'Confirmed',
+            ro: 'Confirmat',
+          },
+          value: 'CONFIRMED',
+        },
+      ],
     },
   ],
-
 }
