@@ -12,7 +12,7 @@ import { Bookings } from './collections/Bookings'
 import { Media } from './collections/Media'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
-import { editorProps } from './editorProps'
+import { editorProps } from './lexical/editorProps'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

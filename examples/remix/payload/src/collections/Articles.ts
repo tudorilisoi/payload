@@ -1,4 +1,4 @@
-import { editorProps } from '@/editorProps'
+import { editorProps } from '@/lexical/editorProps'
 import { tagsfield } from '@/tagsfield'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload'
