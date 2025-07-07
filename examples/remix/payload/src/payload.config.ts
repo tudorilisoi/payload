@@ -1,25 +1,21 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
-import { buildConfig, CollectionAfterDeleteHook, CollectionSlug } from 'payload'
-import { fileURLToPath } from 'url'
+import { buildConfig } from 'payload'
 import sharp from 'sharp'
+import { fileURLToPath } from 'url'
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
 import { en } from '@payloadcms/translations/languages/en'
 import { ro } from '@payloadcms/translations/languages/ro'
-import { tagsfield } from './tagsfield'
-import { Tags } from './collections/Tags'
+import { Articles } from './collections/Articles'
 import { Bookings } from './collections/Bookings'
+import { Media } from './collections/Media'
+import { Tags } from './collections/Tags'
+import { Users } from './collections/Users'
+import { editorProps } from './editorProps'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-
-const editorProps = {
-  features: ({ defaultFeatures }) => [...defaultFeatures, FixedToolbarFeature()],
-}
-
 
 export default buildConfig({
   i18n: {
@@ -50,62 +46,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [
-    Users,
-    Media,
-    Tags,
-    Bookings,
-    {
-      slug: 'posts',
-      labels: {
-        singular: {
-          en: 'Article',
-          ro: 'Articol',
-        },
-        plural: {
-          en: 'Articles',
-          ro: 'Articole',
-        },
-      },
-      admin: {
-        // group: {
-        //   en: 'Articles',
-        //   ro: 'Articole',
-        // },
-        useAsTitle: 'title',
-      },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          label: {
-            en: 'Title',
-            ro: 'Titlu',
-          },
-        },
-        {
-          name: 'content',
-          type: 'richText',
-          required: true,
-          editor: lexicalEditor(editorProps),
-          label: {
-            en: 'Content',
-            ro: 'Conținut',
-          },
-        },
-
-        tagsfield,
-        {
-          name: 'media',
-          type: 'upload',
-          relationTo: 'media', // Name of the Media collection
-          required: false,
-          hasMany: true, // Allows multiple uploads
-        },
-      ],
-    },
-  ],
+  collections: [Users, Articles, Media, Tags, Bookings],
   editor: lexicalEditor(editorProps),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
